@@ -1,0 +1,14 @@
+{% comment %}
+  Renders rating stars
+  Accepts:
+  - rating: {Number} Decimal rating e.g. 4.9
+  - count: {Number} Reviews count e.g. 128
+{% endcomment %}
+<div class="flex items-center gap-1 text-amber-500 text-xs mb-1">
+  <span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">star</span>
+  <span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">star</span>
+  <span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">star</span>
+  <span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">star</span>
+  <span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">star</span>
+  <span class="text-on-surface-variant font-medium ml-1">({{ count | default: 96 }})</span>
+</div>

@@ -1,0 +1,15 @@
+<div class="max-w-[1000px] mx-auto w-full px-4 md:px-12 py-12">
+  <h1 class="font-headline-lg text-3xl md:text-5xl font-bold text-primary mb-6 text-center">
+    {{ page.title }}
+  </h1>
+  <div class="prose prose-purple max-w-none text-on-surface-variant text-sm md:text-base leading-relaxed bg-surface-container-lowest p-8 rounded-3xl border border-outline-variant/30 shadow-xs">
+    {{ page.content }}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Page Content",
+  "settings": []
+}
+{% endschema %}

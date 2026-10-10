@@ -1,0 +1,51 @@
+<div class="max-w-[800px] mx-auto w-full px-4 md:px-12 py-12">
+  <div class="text-center mb-8">
+    <span class="inline-block px-3.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-2 bg-purple-100 text-primary">
+      Concierge Support
+    </span>
+    <h1 class="font-headline-lg text-3xl md:text-5xl font-bold text-primary">Get In Touch</h1>
+    <p class="text-xs text-on-surface-variant mt-2">Our bespoke styling advisors are here to assist with sizes, orders, and inquiries.</p>
+  </div>
+
+  <div class="bg-surface-container-lowest p-8 rounded-3xl border border-outline-variant/30 shadow-md">
+    {% form 'contact', class: 'space-y-4' %}
+      {% if form.posted_successfully? %}
+        <div class="p-4 rounded-xl bg-emerald-50 text-emerald-800 text-xs font-bold border border-emerald-200">
+          ✨ Merci! Your message has been sent to our concierge team. We will respond within 24 hours.
+        </div>
+      {% endif %}
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-xs font-bold text-primary uppercase mb-1" for="ContactFormName">Your Name</label>
+          <input type="text" id="ContactFormName" name="contact[name]" required class="w-full h-11 px-4 rounded-xl bg-surface-container-low border border-outline-variant/40 text-xs text-primary focus:outline-none focus:border-secondary">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-primary uppercase mb-1" for="ContactFormEmail">Email Address</label>
+          <input type="email" id="ContactFormEmail" name="contact[email]" required class="w-full h-11 px-4 rounded-xl bg-surface-container-low border border-outline-variant/40 text-xs text-primary focus:outline-none focus:border-secondary">
+        </div>
+      </div>
+
+      <div>
+        <label class="block text-xs font-bold text-primary uppercase mb-1" for="ContactFormSubject">Inquiry Subject</label>
+        <input type="text" id="ContactFormSubject" name="contact[subject]" placeholder="Order status, styling request, etc." class="w-full h-11 px-4 rounded-xl bg-surface-container-low border border-outline-variant/40 text-xs text-primary focus:outline-none focus:border-secondary">
+      </div>
+
+      <div>
+        <label class="block text-xs font-bold text-primary uppercase mb-1" for="ContactFormMessage">Message</label>
+        <textarea id="ContactFormMessage" name="contact[body]" rows="5" required placeholder="How may our stylists assist you?" class="w-full p-4 rounded-xl bg-surface-container-low border border-outline-variant/40 text-xs text-primary focus:outline-none focus:border-secondary"></textarea>
+      </div>
+
+      <button type="submit" class="w-full py-4 rounded-full bg-secondary hover:bg-secondary-container text-white font-bold text-xs uppercase tracking-wider shadow-md hover:scale-[1.01] transition-all">
+        Send Concierge Inquiry
+      </button>
+    {% endform %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Contact Form",
+  "settings": []
+}
+{% endschema %}

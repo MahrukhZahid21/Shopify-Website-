@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="{{ request.locale.iso_code }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="{{ settings.color_primary | default: '#300033' }}">
+  <link rel="canonical" href="{{ canonical_url }}">
+
+  <title>
+    {{ page_title }}
+    {%- if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif -%}
+    {%- if current_page != 1 %} &ndash; Page {{ current_page }}{% endif -%}
+    {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
+  </title>
+
+  {% if page_description %}
+    <meta name="description" content="{{ page_description | escape }}">
+  {% endif %}
+
+  <!-- Google Fonts & Material Symbols -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "surface-dim": "#dad8ef",
+            "tertiary-container": "#3b1d57",
+            "inverse-on-surface": "#f2efff",
+            "on-secondary": "#ffffff",
+            "surface-container": "#efecff",
+            "inverse-primary": "#f6afef",
+            "primary": "{{ settings.color_primary | default: '#300033' }}",
+            "on-primary": "#ffffff",
+            "on-primary-fixed-variant": "#693168",
+            "tertiary": "#250541",
+            "on-surface-variant": "#4f434c",
+            "on-background": "#1a1a2b",
+            "on-primary-fixed": "#370139",
+            "on-secondary-container": "#fffbff",
+            "primary-fixed": "#ffd6f8",
+            "surface-tint": "#844981",
+            "on-error-container": "#93000a",
+            "surface-container-highest": "#e3e0f8",
+            "outline": "#80737d",
+            "error": "#ba1a1a",
+            "outline-variant": "#d2c2cd",
+            "tertiary-fixed": "#f0dbff",
+            "inverse-surface": "#2f2f41",
+            "secondary-fixed": "#ffd9e3",
+            "error-container": "#ffdad6",
+            "surface-variant": "#e3e0f8",
+            "surface-container-lowest": "#ffffff",
+            "on-error": "#ffffff",
+            "surface-container-low": "#f5f2ff",
+            "primary-fixed-dim": "#f6afef",
+            "surface-bright": "#fcf8ff",
+            "primary-container": "#4a154b",
+            "on-secondary-fixed-variant": "#8e004c",
+            "secondary-container": "#e1037d",
+            "secondary-fixed-dim": "#ffb0c9",
+            "on-tertiary-fixed": "#290a45",
+            "secondary": "{{ settings.color_secondary | default: '#b40063' }}",
+            "on-secondary-fixed": "#3e001e",
+            "on-tertiary-fixed-variant": "#573974",
+            "on-surface": "#1a1a2b",
+            "background": "{{ settings.color_background | default: '#fcf8ff' }}",
+            "on-primary-container": "#be7db9",
+            "surface-container-high": "#e8e6fe",
+            "surface": "#fcf8ff",
+            "tertiary-fixed-dim": "#dcb8fc",
+            "on-tertiary": "#ffffff",
+            "on-tertiary-container": "#a785c6"
+          },
+          fontFamily: {
+            "body-sm": ["Hanken Grotesk"],
+            "label-lg": ["Hanken Grotesk"],
+            "headline-sm": ["Hanken Grotesk"],
+            "headline-md": ["Bodoni Moda"],
+            "headline-lg": ["Bodoni Moda"],
+            "display-hero": ["Bodoni Moda"],
+            "label-md": ["Hanken Grotesk"],
+            "title-md": ["Hanken Grotesk"],
+            "body-lg": ["Hanken Grotesk"],
+            "label-badge": ["Hanken Grotesk"],
+            "body-md": ["Hanken Grotesk"]
+          }
+        }
+      }
+    };
+  </script>
+
+  {{ 'chronics-styles.css' | asset_url | stylesheet_tag }}
+
+  {{ content_for_header }}
+</head>
+
+<body class="bg-background font-body-md text-on-surface antialiased selection:bg-secondary-fixed selection:text-on-secondary-fixed">
+  
+  <!-- Global Announcement Bar & Header -->
+  {% section 'announcement-bar' %}
+  {% section 'header' %}
+
+  <!-- Main Content Layout -->
+  <main id="MainContent" class="w-full pt-[136px] md:pt-[176px] bg-background min-h-screen" role="main" tabindex="-1">
+    {{ content_for_layout }}
+  </main>
+
+  <!-- Global Footer -->
+  {% section 'footer' %}
+
+  <!-- GLOBAL DRAWERS & MODALS -->
+  <div id="drawer-backdrop" class="drawer-backdrop fixed inset-0 bg-primary/40 backdrop-blur-xs z-50"></div>
+
+  <!-- Cart Drawer -->
+  <div id="cart-drawer" class="drawer-panel fixed top-0 right-0 bottom-0 w-full max-w-md bg-white z-50 shadow-2xl flex flex-col justify-between">
+    <!-- Drawer Header -->
+    <div class="p-4 border-b border-outline-variant/30 flex items-center justify-between bg-surface-container-low">
+      <div class="flex items-center gap-2">
+        <span class="material-symbols-outlined text-secondary text-[24px]">shopping_bag</span>
+        <h3 class="font-headline-sm text-lg font-bold text-primary">{{ 'cart.general.title' | t }}</h3>
+        <span class="cart-count-badge bg-secondary text-white text-[10px] font-bold px-2 py-0.5 rounded-full">0</span>
+      </div>
+      <button onclick="window.shopifyTheme.toggleCartDrawer(false)" class="p-1.5 rounded-full text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors" aria-label="Close cart drawer">
+        <span class="material-symbols-outlined text-[20px]">close</span>
+      </button>
+    </div>
+
+    <!-- Free Shipping Progress -->
+    <div class="p-3 bg-purple-50/70 border-b border-lavender/40 flex flex-col gap-1.5">
+      <div class="flex items-center justify-between text-xs text-primary font-semibold" id="cart-free-shipping-text">
+        <span>Add items to qualify for <strong>FREE Express Shipping</strong>!</span>
+      </div>
+      <div class="w-full h-1.5 bg-lavender/30 rounded-full overflow-hidden">
+        <div id="cart-free-shipping-progress" class="h-full bg-gradient-to-r from-secondary to-purple-500 rounded-full transition-all duration-500" style="width: 0%;"></div>
+      </div>
+    </div>
+
+    <!-- Items Container -->
+    <div class="flex-1 overflow-y-auto p-4 space-y-3" id="cart-items-container">
+      <!-- Items dynamically populated via AJAX -->
+    </div>
+
+    <!-- Empty State -->
+    <div id="cart-empty-state" class="hidden flex-1 flex flex-col items-center justify-center p-8 text-center text-on-surface-variant">
+      <span class="material-symbols-outlined text-6xl text-lavender mb-3">shopping_bag</span>
+      <h4 class="font-bold text-primary text-base">{{ 'cart.general.empty' | t }}</h4>
+      <p class="text-xs text-on-surface-variant mt-1">Discover our latest luxury runway pieces and curated edits.</p>
+      <a href="{{ routes.all_products_collection_url }}" class="mt-4 px-6 py-2.5 rounded-full bg-secondary text-white font-semibold text-xs shadow-md hover:bg-secondary-container transition-all">
+        {{ 'general.continue_shopping' | t }}
+      </a>
+    </div>
+
+    <!-- Drawer Footer -->
+    <div id="cart-drawer-footer" class="p-4 border-t border-outline-variant/30 bg-surface-container-low flex flex-col gap-3">
+      <div class="flex justify-between items-center text-xs text-on-surface-variant">
+        <span>Subtotal</span>
+        <span id="cart-subtotal-val" class="font-bold text-primary text-sm">$0.00</span>
+      </div>
+      <div class="flex justify-between items-center text-xs text-on-surface-variant">
+        <span>Estimated Express Shipping</span>
+        <span id="cart-shipping-val" class="font-bold text-emerald-600">FREE</span>
+      </div>
+      <div class="flex justify-between items-center text-sm font-bold text-primary pt-2 border-t border-outline-variant/30">
+        <span>Total</span>
+        <span id="cart-total-val" class="text-secondary text-lg">$0.00</span>
+      </div>
+
+      <form action="{{ routes.cart_url }}" method="post" id="cart">
+        <button type="submit" name="checkout" class="w-full py-3.5 rounded-full bg-secondary hover:bg-secondary-container text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg transition-all hover:scale-[1.01]">
+          <span>{{ 'cart.general.checkout' | t }}</span>
+          <span class="material-symbols-outlined text-[18px]">lock</span>
+        </button>
+      </form>
+      <p class="text-[10px] text-center text-on-surface-variant">Free 30-Day Returns • 100% Authentic Luxury Guarantee</p>
+    </div>
+  </div>
+
+  <!-- Global Predictive Search Modal -->
+  <div id="search-modal" class="fixed inset-0 z-50 bg-primary/60 backdrop-blur-md hidden items-start justify-center pt-20 px-4">
+    <div class="bg-white rounded-3xl p-6 w-full max-w-2xl shadow-2xl border border-lavender flex flex-col gap-4 animate-float-none">
+      <div class="flex items-center justify-between pb-3 border-b border-outline-variant/30">
+        <div class="flex items-center gap-2 flex-1">
+          <span class="material-symbols-outlined text-secondary text-[24px]">search</span>
+          <input id="global-search-input" type="search" placeholder="{{ 'general.search.placeholder' | t }}" class="w-full bg-transparent text-sm md:text-base font-semibold text-primary focus:outline-none" autocomplete="off">
+        </div>
+        <button onclick="window.shopifyTheme.toggleSearchModal(false)" class="p-1.5 text-on-surface-variant hover:text-primary rounded-full">
+          <span class="material-symbols-outlined text-[22px]">close</span>
+        </button>
+      </div>
+      <div id="search-results-grid" class="max-h-[60vh] overflow-y-auto space-y-2">
+        <div class="py-8 text-center text-on-surface-variant">
+          <span class="material-symbols-outlined text-4xl text-lavender block mb-2">search</span>
+          <p class="text-xs">Type keywords above to discover dresses, tops, denim, jackets, or jewelry...</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Concierge Live Stylist Chat Drawer -->
+  <div id="chat-drawer" class="drawer-panel fixed top-0 right-0 bottom-0 w-full max-w-sm bg-white z-50 shadow-2xl flex flex-col justify-between">
+    <div class="p-4 border-b border-outline-variant/30 flex items-center justify-between bg-primary text-white">
+      <div class="flex items-center gap-2.5">
+        <div class="w-8 h-8 rounded-full bg-secondary flex items-center justify-center font-bold text-xs">C</div>
+        <div>
+          <h4 class="font-bold text-sm leading-tight">Chronics Stylist Concierge</h4>
+          <span class="text-[10px] text-emerald-300 flex items-center gap-1">● Online • Average reply 1 min</span>
+        </div>
+      </div>
+      <button onclick="window.shopifyTheme.toggleChatDrawer(false)" class="p-1 text-white/80 hover:text-white"><span class="material-symbols-outlined text-[20px]">close</span></button>
+    </div>
+    <div id="chat-messages" class="flex-1 p-4 overflow-y-auto space-y-3 bg-surface-container-lowest">
+      <div class="flex justify-start items-start gap-2">
+        <div class="w-7 h-7 rounded-full bg-primary flex items-center justify-center text-white text-[10px] font-bold shrink-0">C</div>
+        <div class="bg-surface-container-high text-on-surface py-2 px-3.5 rounded-2xl rounded-tl-none max-w-[85%] text-xs shadow-xs">
+          Bonjour! Welcome to Chronics. Need style recommendations, sizing guidance, or coupon codes? Ask away!
+        </div>
+      </div>
+    </div>
+    <form id="chat-form" class="p-3 border-t border-outline-variant/30 bg-white flex items-center gap-2">
+      <input id="chat-input" type="text" placeholder="Ask your stylist..." class="flex-1 h-10 px-3 text-xs bg-surface-container-low rounded-full border border-outline-variant/40 focus:outline-none focus:border-secondary">
+      <button type="submit" class="w-10 h-10 rounded-full bg-secondary text-white flex items-center justify-center shadow-sm"><span class="material-symbols-outlined text-[18px]">send</span></button>
+    </form>
+  </div>
+
+  <!-- Toast Container -->
+  <div id="toast-container"></div>
+
+  {{ 'chronics-app.js' | asset_url | script_tag }}
+</body>
+</html>

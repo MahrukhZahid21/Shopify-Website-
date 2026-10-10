@@ -1,0 +1,156 @@
+<header class="fixed top-0 left-0 right-0 z-40 shadow-[0_12px_30px_-4px_rgba(74,21,75,0.08)] bg-surface-container-lowest">
+  <!-- Main Navigation Bar -->
+  <div class="border-b border-outline-variant/30">
+    <div class="h-20 max-w-[1360px] mx-auto px-4 md:px-12 flex items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <button onclick="window.shopifyTheme.toggleMobileNav(true)" class="lg:hidden p-2 text-primary hover:text-secondary rounded-lg transition-colors" aria-label="Open navigation menu">
+          <span class="material-symbols-outlined text-[26px]">menu</span>
+        </button>
+        
+        <a href="{{ routes.root_url }}" class="flex items-center gap-3 group">
+          <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-secondary to-primary-container flex items-center justify-center text-white shadow-md group-hover:scale-105 transition-transform">
+            <span class="material-symbols-outlined text-[22px]">shopping_bag</span>
+          </div>
+          <div class="flex flex-col">
+            <span class="font-headline-md text-2xl font-bold text-primary leading-none tracking-tight">{{ shop.name | default: 'CHRONICS' }}</span>
+            <span class="text-[10px] text-on-surface-variant font-bold uppercase tracking-widest mt-0.5">Style, Your Way</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- Desktop Nav -->
+      <nav class="hidden lg:flex items-center gap-6">
+        {%- if section.settings.menu != blank -%}
+          {%- for link in linklists[section.settings.menu].links -%}
+            <a href="{{ link.url }}" class="py-2 text-on-surface-variant hover:text-secondary transition-colors text-sm tracking-wide {% if link.active %}text-secondary border-b-2 border-secondary font-semibold{% endif %}">
+              {{ link.title }}
+            </a>
+          {%- endfor -%}
+        {%- else -%}
+          <a href="{{ routes.root_url }}" class="py-2 text-secondary border-b-2 border-secondary font-semibold text-sm tracking-wide">Home</a>
+          <a href="{{ routes.all_products_collection_url }}" class="py-2 text-on-surface-variant hover:text-secondary transition-colors text-sm tracking-wide">Shop</a>
+          <a href="{{ routes.all_products_collection_url }}?filter=women" class="py-2 text-on-surface-variant hover:text-secondary transition-colors text-sm tracking-wide">Women</a>
+          <a href="{{ routes.all_products_collection_url }}?filter=men" class="py-2 text-on-surface-variant hover:text-secondary transition-colors text-sm tracking-wide">Men</a>
+          <a href="{{ routes.all_products_collection_url }}?filter=accessories" class="py-2 text-on-surface-variant hover:text-secondary transition-colors text-sm tracking-wide">Accessories</a>
+          <a href="/pages/reviews" class="py-2 text-on-surface-variant hover:text-secondary transition-colors text-sm tracking-wide">Reviews</a>
+          <a href="/pages/faq" class="py-2 text-on-surface-variant hover:text-secondary transition-colors text-sm tracking-wide">FAQ</a>
+          <a href="/pages/about" class="py-2 text-on-surface-variant hover:text-secondary transition-colors text-sm tracking-wide">About Us</a>
+          <a href="/pages/contact" class="py-2 text-on-surface-variant hover:text-secondary transition-colors text-sm tracking-wide">Contact Us</a>
+        {%- endif -%}
+      </nav>
+
+      <!-- Right Action Icons -->
+      <div class="flex items-center gap-3 shrink-0">
+        <button onclick="window.shopifyTheme.toggleSearchModal(true)" aria-label="Search Catalog" class="w-10 h-10 rounded-full flex items-center justify-center text-on-surface hover:bg-surface-container-high transition-colors">
+          <span class="material-symbols-outlined text-[22px]">search</span>
+        </button>
+        
+        <button onclick="window.shopifyTheme.showToast('Wishlist items saved to your browser', 'info')" aria-label="Wishlist" class="relative w-10 h-10 rounded-full flex items-center justify-center text-on-surface hover:bg-surface-container-high transition-colors">
+          <span class="material-symbols-outlined text-[22px]">favorite</span>
+          <span class="wishlist-count-badge absolute top-1 right-1 w-4 h-4 bg-secondary text-white rounded-full text-[10px] font-bold flex items-center justify-center leading-none" style="display: none;">0</span>
+        </button>
+        
+        <button onclick="window.shopifyTheme.toggleCartDrawer(true)" aria-label="Shopping Cart" class="relative w-10 h-10 rounded-full flex items-center justify-center text-on-surface hover:bg-surface-container-high transition-colors">
+          <span class="material-symbols-outlined text-[22px]">shopping_bag</span>
+          <span class="cart-count-badge absolute top-1 right-1 w-4 h-4 bg-secondary text-white rounded-full text-[10px] font-bold flex items-center justify-center leading-none">
+            {{ cart.item_count }}
+          </span>
+        </button>
+        
+        <a href="{{ routes.account_url }}" class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shadow-xs cursor-pointer text-white" title="Customer Account">
+          <span class="material-symbols-outlined text-[18px]">person</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Secondary Category Sub-Nav Bar -->
+  <div class="bg-surface-container-lowest border-b border-outline-variant/30 hidden md:block">
+    <div class="h-12 max-w-[1360px] mx-auto px-4 md:px-12 flex items-center justify-between">
+      <div class="flex items-center gap-6">
+        <a href="{{ routes.all_products_collection_url }}?cat=tops" class="text-xs font-semibold text-on-surface-variant hover:text-secondary transition-colors uppercase tracking-wider">Women's Top</a>
+        <a href="{{ routes.all_products_collection_url }}?cat=dresses" class="text-xs font-semibold text-on-surface-variant hover:text-secondary transition-colors uppercase tracking-wider">Women's Wear</a>
+        <a href="{{ routes.all_products_collection_url }}?cat=sunglasses" class="text-xs font-semibold text-on-surface-variant hover:text-secondary transition-colors uppercase tracking-wider">Sunglasses</a>
+        <a href="{{ routes.all_products_collection_url }}?cat=shoes" class="text-xs font-semibold text-on-surface-variant hover:text-secondary transition-colors uppercase tracking-wider">Shoes Store</a>
+        <a href="{{ routes.all_products_collection_url }}?cat=bags" class="text-xs font-semibold text-on-surface-variant hover:text-secondary transition-colors uppercase tracking-wider">Bags Store</a>
+        <a href="{{ routes.all_products_collection_url }}?cat=accessories" class="text-xs font-semibold text-on-surface-variant hover:text-secondary transition-colors uppercase tracking-wider">Jewelry Store</a>
+      </div>
+      
+      <button onclick="window.shopifyTheme.toggleChatDrawer(true)" class="bg-secondary hover:bg-secondary-container text-white text-xs font-semibold px-4 py-1.5 rounded-full flex items-center gap-1.5 shadow-[0_4px_12px_rgba(180,0,99,0.3)] hover:scale-105 transition-all">
+        <span class="material-symbols-outlined text-[16px]">headset_mic</span>
+        Need Help? Chat Now
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Drawer Menu -->
+  <div id="mobile-nav-panel" class="mobile-nav-panel fixed top-0 left-0 bottom-0 w-full max-w-xs bg-white z-50 shadow-2xl flex flex-col justify-between">
+    <div class="p-4 border-b border-outline-variant/30 flex items-center justify-between bg-surface-container-low">
+      <div class="flex items-center gap-2">
+        <div class="w-7 h-7 rounded-lg bg-secondary flex items-center justify-center text-white">
+          <span class="material-symbols-outlined text-[16px]">shopping_bag</span>
+        </div>
+        <span class="font-headline-sm text-lg font-bold text-primary">{{ shop.name | default: 'CHRONICS' }}</span>
+      </div>
+      <button onclick="window.shopifyTheme.toggleMobileNav(false)" class="p-1 rounded-full text-on-surface-variant hover:text-primary transition-colors">
+        <span class="material-symbols-outlined text-[20px]">close</span>
+      </button>
+    </div>
+
+    <div class="flex-1 overflow-y-auto p-4 flex flex-col gap-1 text-sm font-semibold">
+      <a href="{{ routes.root_url }}" class="py-2.5 px-3 rounded-lg text-secondary bg-surface-container-high flex items-center justify-between">
+        <span>Home</span> <span class="material-symbols-outlined text-[18px]">chevron_right</span>
+      </a>
+      <a href="{{ routes.all_products_collection_url }}" class="py-2.5 px-3 rounded-lg text-primary hover:bg-surface-container-low flex items-center justify-between">
+        <span>Shop All Collections</span> <span class="material-symbols-outlined text-[18px]">chevron_right</span>
+      </a>
+      <a href="{{ routes.all_products_collection_url }}?cat=dresses" class="py-2.5 px-3 rounded-lg text-primary hover:bg-surface-container-low flex items-center justify-between">
+        <span>Women's Wear</span> <span class="material-symbols-outlined text-[18px]">chevron_right</span>
+      </a>
+      <a href="{{ routes.all_products_collection_url }}?cat=tops" class="py-2.5 px-3 rounded-lg text-primary hover:bg-surface-container-low flex items-center justify-between">
+        <span>Tops &amp; Tees</span> <span class="material-symbols-outlined text-[18px]">chevron_right</span>
+      </a>
+      <a href="{{ routes.all_products_collection_url }}?cat=accessories" class="py-2.5 px-3 rounded-lg text-primary hover:bg-surface-container-low flex items-center justify-between">
+        <span>Accessories &amp; Jewelry</span> <span class="material-symbols-outlined text-[18px]">chevron_right</span>
+      </a>
+      <a href="{{ routes.all_products_collection_url }}?cat=shoes" class="py-2.5 px-3 rounded-lg text-primary hover:bg-surface-container-low flex items-center justify-between">
+        <span>Shoes &amp; Footwear</span> <span class="material-symbols-outlined text-[18px]">chevron_right</span>
+      </a>
+      <a href="{{ routes.all_products_collection_url }}?cat=bags" class="py-2.5 px-3 rounded-lg text-primary hover:bg-surface-container-low flex items-center justify-between">
+        <span>Bags &amp; Purses</span> <span class="material-symbols-outlined text-[18px]">chevron_right</span>
+      </a>
+      <a href="/pages/reviews" class="py-2.5 px-3 rounded-lg text-primary hover:bg-surface-container-low flex items-center justify-between">
+        <span>Customer Reviews</span> <span class="material-symbols-outlined text-[18px]">chevron_right</span>
+      </a>
+      <a href="/pages/faq" class="py-2.5 px-3 rounded-lg text-primary hover:bg-surface-container-low flex items-center justify-between">
+        <span>FAQ &amp; Help</span> <span class="material-symbols-outlined text-[18px]">chevron_right</span>
+      </a>
+      <a href="/pages/about" class="py-2.5 px-3 rounded-lg text-primary hover:bg-surface-container-low flex items-center justify-between">
+        <span>About Us</span> <span class="material-symbols-outlined text-[18px]">chevron_right</span>
+      </a>
+      <a href="/pages/contact" class="py-2.5 px-3 rounded-lg text-primary hover:bg-surface-container-low flex items-center justify-between">
+        <span>Contact Support</span> <span class="material-symbols-outlined text-[18px]">chevron_right</span>
+      </a>
+    </div>
+
+    <div class="p-4 border-t border-outline-variant/30 bg-surface-container-low flex flex-col gap-2">
+      <button onclick="window.shopifyTheme.toggleMobileNav(false); window.shopifyTheme.toggleChatDrawer(true)" class="w-full py-2.5 rounded-full bg-secondary text-white font-semibold text-xs flex items-center justify-center gap-1.5 shadow-sm">
+        <span class="material-symbols-outlined text-[16px]">headset_mic</span> Need Help? Chat Now
+      </button>
+    </div>
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menu",
+      "default": "main-menu"
+    }
+  ]
+}
+{% endschema %}

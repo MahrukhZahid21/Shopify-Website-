@@ -1,0 +1,50 @@
+<div class="bg-primary-container text-on-primary py-2 px-4 md:px-12 text-xs font-medium hidden md:block border-b border-primary/20">
+  <div class="max-w-[1360px] mx-auto flex items-center justify-between">
+    <div class="flex items-center gap-6">
+      <span class="flex items-center gap-1.5">
+        <span class="material-symbols-outlined text-[16px] text-secondary-fixed">local_shipping</span> 
+        {{ section.settings.shipping_text | default: "Free Shipping on Orders Over $50" }}
+      </span>
+      <span class="text-on-primary-container opacity-50">|</span>
+      <span class="flex items-center gap-1.5">
+        <span class="material-symbols-outlined text-[16px] text-secondary-fixed">replay</span> 
+        {{ section.settings.returns_text | default: "Easy 30-Day Returns" }}
+      </span>
+      <span class="text-on-primary-container opacity-50">|</span>
+      <span class="flex items-center gap-1.5">
+        <span class="material-symbols-outlined text-[16px] text-secondary-fixed">phone_iphone</span> 
+        {{ section.settings.promo_text | default: "Extra 10% Off with code" }} <strong>{{ settings.promo_code | default: "CHRONICAPP" }}</strong>
+      </span>
+    </div>
+    <div class="flex items-center gap-2">
+      <span class="material-symbols-outlined text-[16px] text-secondary-fixed">call</span>
+      <span>Call Support: {{ settings.support_phone | default: "+1 800 567 8900" }}</span>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Announcement Bar",
+  "settings": [
+    {
+      "type": "text",
+      "id": "shipping_text",
+      "label": "Shipping text",
+      "default": "Free Shipping on Orders Over $50"
+    },
+    {
+      "type": "text",
+      "id": "returns_text",
+      "label": "Returns text",
+      "default": "Easy 30-Day Returns"
+    },
+    {
+      "type": "text",
+      "id": "promo_text",
+      "label": "Promo text",
+      "default": "Extra 10% Off with code"
+    }
+  ]
+}
+{% endschema %}

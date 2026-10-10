@@ -1,0 +1,49 @@
+<div class="max-w-[1360px] mx-auto w-full px-4 md:px-12 py-10">
+  <div class="text-center pb-8 border-b border-outline-variant/30 mb-8">
+    <span class="text-xs font-bold uppercase tracking-widest text-secondary block mb-1">Search Results</span>
+    <h1 class="font-headline-lg text-3xl md:text-5xl font-bold text-primary">
+      {% if search.performed %}
+        Results for &ldquo;{{ search.terms }}&rdquo;
+      {% else %}
+        Search Our Catalog
+      {% endif %}
+    </h1>
+    {% if search.performed %}
+      <p class="text-xs text-on-surface-variant mt-2">{{ search.results_count }} items discovered</p>
+    {% endif %}
+  </div>
+
+  {% if search.performed and search.results_count > 0 %}
+    {% paginate search.results by 16 %}
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
+        {% for item in search.results %}
+          {% if item.object_type == 'product' %}
+            {% render 'product-card', product: item %}
+          {% endif %}
+        {% endfor %}
+      </div>
+
+      {% if paginate.pages > 1 %}
+        <div class="flex justify-center items-center gap-2 mt-8">
+          <span class="text-xs font-bold text-primary px-3">Page {{ paginate.current_page }} of {{ paginate.pages }}</span>
+        </div>
+      {% endif %}
+    {% endpaginate %}
+  {% else %}
+    <div class="py-16 text-center bg-surface-container-lowest rounded-3xl border border-outline-variant/30 p-8 max-w-xl mx-auto">
+      <span class="material-symbols-outlined text-6xl text-lavender block mb-3">search_off</span>
+      <h3 class="font-bold text-primary text-base">No results matching your inquiry</h3>
+      <p class="text-xs text-on-surface-variant mt-1">Try another keyword, or browse our curated seasonal collections.</p>
+      <a href="{{ routes.all_products_collection_url }}" class="mt-6 inline-flex px-8 py-3 rounded-full bg-secondary text-white font-semibold text-xs shadow-md hover:bg-secondary-container transition-all">
+        Browse All Collections
+      </a>
+    </div>
+  {% endif %}
+</div>
+
+{% schema %}
+{
+  "name": "Search Results",
+  "settings": []
+}
+{% endschema %}

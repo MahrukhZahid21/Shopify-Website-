@@ -1,0 +1,18 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-collection",
+      "settings": {
+        "products_per_page": 16
+      }
+    },
+    "services": {
+      "type": "service-guarantees",
+      "settings": {}
+    }
+  },
+  "order": [
+    "main",
+    "services"
+  ]
+}

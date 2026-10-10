@@ -1,0 +1,111 @@
+<section class="relative w-full overflow-hidden py-10 lg:py-16 bg-gradient-chic border-b border-[#D8B4F8]/40">
+  <div class="pointer-events-none absolute -right-24 top-10 h-96 w-96 rounded-full bg-secondary/15 blur-3xl"></div>
+  <div class="pointer-events-none absolute left-12 bottom-6 h-64 w-64 rounded-full bg-tertiary-fixed/40 blur-2xl"></div>
+
+  <div class="max-w-[1360px] mx-auto px-4 md:px-12">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+      
+      <!-- Left Editorial Copy Block -->
+      <div class="lg:col-span-6 z-10 flex flex-col items-start pr-0 lg:pr-6">
+        <span class="inline-block px-3.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-3 shadow-xs bg-white text-primary border border-lavender">
+          {{ section.settings.badge_text | default: "✨ Special Offer" }}
+        </span>
+        <h1 class="font-headline-lg lg:font-display-hero text-4xl lg:text-6xl text-primary tracking-tight leading-[1.08] mb-3">
+          {{ section.settings.title | default: "Refresh Your" }}<br>
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-secondary via-secondary-container to-secondary">
+            {{ section.settings.subtitle_highlight | default: "Fashion Vibe" }}
+          </span>
+        </h1>
+        <p class="text-lg text-on-surface-variant max-w-md mb-6 leading-relaxed">
+          {{ section.settings.description | default: "Grab up to 40% OFF on your first order. Limited time only curated runway pieces & everyday chic." }}
+        </p>
+        <div class="flex flex-wrap items-center gap-4">
+          <a href="{{ section.settings.button_link | default: routes.all_products_collection_url }}" class="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-secondary hover:bg-secondary-container text-white font-semibold text-sm transition-all shadow-[0_6px_20px_rgba(180,0,99,0.3)] hover:-translate-y-0.5">
+            <span>{{ section.settings.button_label | default: "Shop Now" }}</span>
+            <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+          </a>
+          <a href="{{ section.settings.secondary_button_link | default: routes.all_products_collection_url }}" class="inline-flex items-center px-7 py-3.5 rounded-full bg-white/90 hover:bg-white text-primary font-semibold text-sm transition-all border-2 border-lavender shadow-sm">
+            {{ section.settings.secondary_button_label | default: "Explore Collection" }}
+          </a>
+        </div>
+      </div>
+
+      <!-- Right Visual Model -->
+      <div class="lg:col-span-6 relative flex justify-center items-end mt-4 lg:mt-0">
+        <div class="relative w-full max-w-[500px] h-[440px] lg:h-[500px] rounded-3xl overflow-hidden shadow-2xl bg-surface-container-low flex items-end justify-center border-4 border-white/60">
+          {%- if section.settings.hero_image != blank -%}
+            <img src="{{ section.settings.hero_image | image_url: width: 1000 }}" alt="{{ section.settings.title | escape }}" class="w-full h-full object-cover object-top hover:scale-105 transition-transform duration-700">
+          {%- else -%}
+            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuD0-lRyXLTSZkcxT4J8Sd_NRFs2Y03LxHO-Hxm2pKhnij_ev5_wuGpVIiG61L_BruoNt11R1dhr6yXzlAd28Hd-tPc3Is4iehvbMXhhReKDpZwnBBnZ-eStnyOJE8Hz-TPTjRuRMwmV09wR5-DEwNlSTtKfAIx91-q5hOk83QSHpbII6feNYO-qq6y_OWjr7N0W7QkeW4GiZjj0v-c61Gpf8zAotAniluG9YTatkItJQu7AIWXQ5B12rA" alt="Chronics Seasonal Fashion" class="w-full h-full object-cover object-top hover:scale-105 transition-transform duration-700">
+          {%- endif -%}
+          <div class="absolute inset-0 bg-gradient-to-t from-primary/30 via-transparent to-transparent pointer-events-none"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero Banner",
+  "settings": [
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Badge label",
+      "default": "✨ Special Offer"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Refresh Your"
+    },
+    {
+      "type": "text",
+      "id": "subtitle_highlight",
+      "label": "Highlighted text",
+      "default": "Fashion Vibe"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Grab up to 40% OFF on your first order. Limited time only curated runway pieces & everyday chic."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Primary button label",
+      "default": "Shop Now"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Primary button link"
+    },
+    {
+      "type": "text",
+      "id": "secondary_button_label",
+      "label": "Secondary button label",
+      "default": "Explore Collection"
+    },
+    {
+      "type": "url",
+      "id": "secondary_button_link",
+      "label": "Secondary button link"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero Image"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero Banner"
+    }
+  ]
+}
+{% endschema %}

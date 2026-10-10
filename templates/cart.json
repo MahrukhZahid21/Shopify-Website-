@@ -1,0 +1,16 @@
+{
+  "sections": {
+    "cart": {
+      "type": "main-cart",
+      "settings": {}
+    },
+    "services": {
+      "type": "service-guarantees",
+      "settings": {}
+    }
+  },
+  "order": [
+    "cart",
+    "services"
+  ]
+}

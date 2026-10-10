@@ -1,0 +1,36 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero-banner",
+      "settings": {
+        "badge_text": "✨ Special Offer",
+        "title": "Refresh Your",
+        "subtitle_highlight": "Fashion Vibe",
+        "description": "Grab up to 40% OFF on your first order. Limited time only curated runway pieces & everyday chic.",
+        "button_label": "Shop Now",
+        "secondary_button_label": "Explore Collection"
+      }
+    },
+    "categories": {
+      "type": "featured-categories",
+      "settings": {}
+    },
+    "trending": {
+      "type": "trending-products",
+      "settings": {
+        "title": "Trending Products",
+        "products_to_show": 5
+      }
+    },
+    "services": {
+      "type": "service-guarantees",
+      "settings": {}
+    }
+  },
+  "order": [
+    "hero",
+    "categories",
+    "trending",
+    "services"
+  ]
+}

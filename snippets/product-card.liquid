@@ -1,0 +1,58 @@
+{% comment %}
+  Renders a luxury Chronics product card
+  Accepts:
+  - product: {Object} Shopify Product object
+  - show_vendor: {Boolean}
+{% endcomment %}
+{%- liquid
+  assign variant = product.selected_or_first_available_variant
+  assign compare_at_price = variant.compare_at_price
+  assign price = variant.price
+  assign on_sale = false
+  if compare_at_price > price
+    assign on_sale = true
+    assign discount_percent = compare_at_price | minus: price | times: 100.0 | divided_by: compare_at_price | round
+  endif
+-%}
+
+<div class="product-card group bg-surface-container-lowest rounded-2xl p-3 flex flex-col justify-between shadow-xs hover:shadow-xl border border-outline-variant/30 transition-all duration-300 relative">
+  <!-- Sale Badge -->
+  {%- if on_sale -%}
+    <span class="absolute top-2.5 left-2.5 z-10 px-2 py-0.5 rounded-full bg-secondary text-white text-[10px] font-bold shadow-xs">
+      -{{ discount_percent }}%
+    </span>
+  {%- endif -%}
+
+  <!-- Wishlist Toggle Button -->
+  <button data-product-handle="{{ product.handle }}" aria-label="Add to wishlist" class="wishlist-toggle-btn absolute top-2.5 right-2.5 z-10 w-8 h-8 rounded-full bg-white/90 backdrop-blur-xs flex items-center justify-center text-on-surface hover:text-secondary shadow-xs transition-colors">
+    <span class="material-symbols-outlined wishlist-icon text-[18px]">favorite</span>
+  </button>
+
+  <!-- Product Image Stage -->
+  <div class="relative w-full aspect-[4/5] rounded-xl overflow-hidden bg-surface-container-low flex items-center justify-center mb-3">
+    <a href="{{ product.url }}" class="w-full h-full flex items-center justify-center p-3">
+      {%- if product.featured_image != blank -%}
+        <img class="product-card-img w-full h-full object-contain" alt="{{ product.title | escape }}" src="{{ product.featured_image | image_url: width: 600 }}" loading="lazy" width="600" height="750">
+      {%- else -%}
+        {{ 'image' | placeholder_svg_tag: 'w-full h-full object-cover opacity-60' }}
+      {%- endif -%}
+    </a>
+  </div>
+
+  <!-- Content & Details -->
+  <div class="flex flex-col flex-1 px-1 pb-1">
+    {% render 'rating-stars', rating: 4.9, count: 112 %}
+    
+    <a href="{{ product.url }}" class="text-sm font-semibold text-primary truncate hover:text-secondary cursor-pointer transition-colors">
+      {{ product.title }}
+    </a>
+
+    <div class="flex items-center justify-between mt-2">
+      {% render 'price', product: product, use_variant: true %}
+
+      <button type="button" onclick="window.shopifyTheme.addToCart('{{ variant.id }}', 1)" class="w-8 h-8 rounded-full bg-surface-container-high hover:bg-secondary hover:text-white text-primary flex items-center justify-center transition-all shadow-xs" title="Add to Bag">
+        <span class="material-symbols-outlined text-[18px]">shopping_bag</span>
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,18 @@
+{
+  "current": {
+    "color_primary": "#300033",
+    "color_secondary": "#B40063",
+    "color_accent": "#D8B4F8",
+    "color_background": "#FCF8FF",
+    "color_text": "#1A1A2B",
+    "free_shipping_threshold": "50",
+    "promo_code": "CHRONICAPP",
+    "promo_discount": "10",
+    "support_phone": "+1 800 567 8900",
+    "cart_type": "drawer",
+    "show_free_shipping_bar": true,
+    "social_instagram_link": "https://instagram.com/chronicsfashion",
+    "social_tiktok_link": "https://tiktok.com/@chronicsfashion",
+    "social_pinterest_link": "https://pinterest.com/chronicsfashion"
+  }
+}

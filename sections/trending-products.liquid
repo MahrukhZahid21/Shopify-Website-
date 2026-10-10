@@ -1,0 +1,153 @@
+<section class="w-full py-12 lg:py-16 bg-surface">
+  <div class="max-w-[1360px] mx-auto px-4 md:px-12">
+    
+    <!-- Section Header & Filter Tabs -->
+    <div class="flex flex-col items-center mb-10">
+      <h2 class="font-headline-md text-3xl lg:text-4xl text-primary tracking-tight text-center font-bold">
+        {{ section.settings.title | default: "Trending Products" }}
+      </h2>
+      <div class="inline-flex p-1 bg-white rounded-full mt-4 gap-1 border border-lavender shadow-sm">
+        <button class="px-5 py-2 rounded-full bg-secondary text-white text-xs font-bold transition-all shadow-sm">
+          Best Seller
+        </button>
+        <button class="px-5 py-2 rounded-full text-on-surface-variant hover:text-primary text-xs font-semibold transition-all">
+          New Arrivals
+        </button>
+        <button class="px-5 py-2 rounded-full text-on-surface-variant hover:text-primary text-xs font-semibold transition-all">
+          Top Rated
+        </button>
+      </div>
+    </div>
+
+    <!-- 5-Column Product Cards Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+      {%- liquid
+        assign collection = collections[section.settings.collection] | default: collections.all
+        assign products_to_show = section.settings.products_to_show | default: 5
+      -%}
+
+      {%- if collection.products.size > 0 -%}
+        {%- for product in collection.products limit: products_to_show -%}
+          {% render 'product-card', product: product %}
+        {%- endfor -%}
+      {%- else -%}
+        {% comment %} Elegant Demo Cards if store has no products imported yet {% endcomment %}
+        <div class="product-card group bg-surface-container-lowest rounded-2xl p-3 flex flex-col justify-between shadow-xs hover:shadow-xl border border-outline-variant/30 transition-all duration-300 relative">
+          <span class="absolute top-2.5 left-2.5 z-10 px-2 py-0.5 rounded-full bg-secondary text-white text-[10px] font-bold shadow-xs">-25%</span>
+          <div class="relative w-full aspect-[4/5] rounded-xl overflow-hidden bg-surface-container-low flex items-center justify-center mb-3">
+            <img class="product-card-img w-full h-full object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZ5v4FoFiApF3Qca4X2_9Nzy0hcZrbuM-jr2gzT1xr6PR7iJ2xIALMzTPus_WOYz5SQpLtiuTs0pexElPkwOPDWffpyhmLhI-cT4mUsmUe4ZSzg8JnMPXzDRPbHCrNw67MwF2_vIlyrc7SOf1VJf8xisbZL_H-s24qXXuE_QqqoQpp6w6FVngvAEi2YTu0rZJ6HMbXcjtyQZYFX_jJyAT9zypHF1lhR26JUTVqaZZuP0rEOfkdrxPlmA" alt="V-Neck Summer Dress">
+          </div>
+          <div class="flex flex-col flex-1 px-1 pb-1">
+            {% render 'rating-stars', rating: 5.0, count: 128 %}
+            <h4 class="text-sm font-semibold text-primary truncate">V-Neck Summer Dress</h4>
+            <div class="flex items-center justify-between mt-2">
+              <span class="font-bold text-secondary text-base">$29.99</span>
+              <button onclick="window.shopifyTheme.showToast('Added to bag!', 'success')" class="w-8 h-8 rounded-full bg-surface-container-high hover:bg-secondary hover:text-white text-primary flex items-center justify-center transition-all shadow-xs"><span class="material-symbols-outlined text-[18px]">shopping_bag</span></button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card group bg-surface-container-lowest rounded-2xl p-3 flex flex-col justify-between shadow-xs hover:shadow-xl border border-outline-variant/30 transition-all duration-300 relative">
+          <div class="relative w-full aspect-[4/5] rounded-xl overflow-hidden bg-surface-container-low flex items-center justify-center mb-3">
+            <img class="product-card-img w-full h-full object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuASzDF2O7nofDRjHaREJRY5psbG0GPzQ2icNLtFH7_4TaX77tRsk4zQfMaYftmzlRMIPT8s5I51qXKb1HVB4aMsX8Bc_TGZ0lQjFQJOWMIxyp_uEAuV3AI2yENPFPsvvZCwq0I6McM3y-UX-aFaKxtCVHtQ9zaW8nDZKCfHqge77_Wol8A44U9fy5R5NvGM6N2vTDEa14zaIQqPQzHDgZHLcDvZ4gmbdpJsYWqduAJG4cw2a-xkbYaIIQ" alt="Off-Shoulder Yellow Top">
+          </div>
+          <div class="flex flex-col flex-1 px-1 pb-1">
+            {% render 'rating-stars', rating: 4.8, count: 96 %}
+            <h4 class="text-sm font-semibold text-primary truncate">Off-Shoulder Yellow Top</h4>
+            <div class="flex items-center justify-between mt-2">
+              <span class="font-bold text-secondary text-base">$21.99</span>
+              <button onclick="window.shopifyTheme.showToast('Added to bag!', 'success')" class="w-8 h-8 rounded-full bg-surface-container-high hover:bg-secondary hover:text-white text-primary flex items-center justify-center transition-all shadow-xs"><span class="material-symbols-outlined text-[18px]">shopping_bag</span></button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card group bg-surface-container-lowest rounded-2xl p-3 flex flex-col justify-between shadow-xs hover:shadow-xl border border-outline-variant/30 transition-all duration-300 relative">
+          <span class="absolute top-2.5 left-2.5 z-10 px-2 py-0.5 rounded-full bg-secondary text-white text-[10px] font-bold shadow-xs">-30%</span>
+          <div class="relative w-full aspect-[4/5] rounded-xl overflow-hidden bg-surface-container-low flex items-center justify-center mb-3">
+            <img class="product-card-img w-full h-full object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDRldJOnG83Ggn7f8V9iNYbbnG2fWNzYa12MYAFpKtC2k289KsC0CdX8MXmdvnH-xfbbjGuVYVCiyKbEp6aF1WiwTM7t_FQuwANhJo_6XnTr6_C45FNfHFZ1OGkeqst4Sdrgk7ZT9rAwRgSl7dasVJm6KPzFce2iNUMbNDHEc--LfuQLNKvSZz05WGzsXyzuWH64TOQ7MyNBtyyDjYjRMOlx6jJBPdshIrAB3EUU-JEG4ffQiTFw47zRA" alt="Striped Casual Shirt">
+          </div>
+          <div class="flex flex-col flex-1 px-1 pb-1">
+            {% render 'rating-stars', rating: 4.9, count: 150 %}
+            <h4 class="text-sm font-semibold text-primary truncate">Striped Casual Shirt</h4>
+            <div class="flex items-center justify-between mt-2">
+              <span class="font-bold text-secondary text-base">$27.99</span>
+              <button onclick="window.shopifyTheme.showToast('Added to bag!', 'success')" class="w-8 h-8 rounded-full bg-surface-container-high hover:bg-secondary hover:text-white text-primary flex items-center justify-center transition-all shadow-xs"><span class="material-symbols-outlined text-[18px]">shopping_bag</span></button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card group bg-surface-container-lowest rounded-2xl p-3 flex flex-col justify-between shadow-xs hover:shadow-xl border border-outline-variant/30 transition-all duration-300 relative">
+          <span class="absolute top-2.5 left-2.5 z-10 px-2 py-0.5 rounded-full bg-secondary text-white text-[10px] font-bold shadow-xs">-20%</span>
+          <div class="relative w-full aspect-[4/5] rounded-xl overflow-hidden bg-surface-container-low flex items-center justify-center mb-3">
+            <img class="product-card-img w-full h-full object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA5z1SLGFM-eVl7GVfAzCjiOmJ24fe66DFwjmqRwTXnMdISvxdAQ__d_dUVy_ogfcljX4ga10f3aWQYNgiQ_o6uA3DBIGQy3ZIlwqhy9820G98Aj_wl_TW3GkctO42Nul8hF7nwMcaOcJw5X0k6jKNFY4FF9Z2QBZdocBB93k_0UbZPjYlldO9peS8O6hPmWBZgUTTe_T3Q7EVCCtY56S-XilY7jWh3gJbGT6LwsNBc0KNW6Uml7JamZA" alt="Floral Wrap Mini Dress">
+          </div>
+          <div class="flex flex-col flex-1 px-1 pb-1">
+            {% render 'rating-stars', rating: 4.9, count: 89 %}
+            <h4 class="text-sm font-semibold text-primary truncate">Floral Wrap Mini Dress</h4>
+            <div class="flex items-center justify-between mt-2">
+              <span class="font-bold text-secondary text-base">$31.99</span>
+              <button onclick="window.shopifyTheme.showToast('Added to bag!', 'success')" class="w-8 h-8 rounded-full bg-surface-container-high hover:bg-secondary hover:text-white text-primary flex items-center justify-center transition-all shadow-xs"><span class="material-symbols-outlined text-[18px]">shopping_bag</span></button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card group bg-surface-container-lowest rounded-2xl p-3 flex flex-col justify-between shadow-xs hover:shadow-xl border border-outline-variant/30 transition-all duration-300 relative">
+          <span class="absolute top-2.5 left-2.5 z-10 px-2 py-0.5 rounded-full bg-secondary text-white text-[10px] font-bold shadow-xs">-28%</span>
+          <div class="relative w-full aspect-[4/5] rounded-xl overflow-hidden bg-surface-container-low flex items-center justify-center mb-3">
+            <img class="product-card-img w-full h-full object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAGQVV-DXaD-x6TfGxrHsTD_-OgNicJtfTdn3AKKzXhiVSHJBSa9dbuawygqTBpN4Y7zD9s53j0JAgsx6tucejqAJ_pwW9GyyRpbL7zxHv_uugLNVG-O8rvlVOwe2dzyzrd1V3hsnaZ04PQbB8NMgKYCIroBttgPLlttxYJmhqlwA80rUByIKFiCBYoobvWu9YXl8GZy-rbg7VmVKysOi6_fvJl01XhnV2PZgsr0znMJXl2l6hEyj6ehw" alt="Vintage Baker Boy Cap">
+          </div>
+          <div class="flex flex-col flex-1 px-1 pb-1">
+            {% render 'rating-stars', rating: 4.9, count: 115 %}
+            <h4 class="text-sm font-semibold text-primary truncate">Vintage Baker Boy Cap</h4>
+            <div class="flex items-center justify-between mt-2">
+              <span class="font-bold text-secondary text-base">$19.99</span>
+              <button onclick="window.shopifyTheme.showToast('Added to bag!', 'success')" class="w-8 h-8 rounded-full bg-surface-container-high hover:bg-secondary hover:text-white text-primary flex items-center justify-center transition-all shadow-xs"><span class="material-symbols-outlined text-[18px]">shopping_bag</span></button>
+            </div>
+          </div>
+        </div>
+      {%- endif -%}
+    </div>
+
+    <!-- Center CTA -->
+    <div class="flex justify-center mt-12">
+      <a href="{{ routes.all_products_collection_url }}" class="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-primary hover:bg-primary-container text-white text-xs font-bold uppercase tracking-wider shadow-md hover:scale-105 transition-all">
+        <span>View All Collections</span>
+        <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+      </a>
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Trending Products",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Trending Products"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 4,
+      "max": 15,
+      "step": 1,
+      "default": 5,
+      "label": "Maximum products to show"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Trending Products"
+    }
+  ]
+}
+{% endschema %}

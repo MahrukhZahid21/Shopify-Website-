@@ -1,0 +1,118 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Chronics — Luxury Fashion",
+    "theme_version": "1.0.0",
+    "theme_author": "Chronics Studio",
+    "theme_documentation_url": "https://chronics.fashion",
+    "theme_support_url": "https://chronics.fashion/contact"
+  },
+  {
+    "name": "Colors & Styling",
+    "settings": [
+      {
+        "type": "color",
+        "id": "color_primary",
+        "label": "Primary Color",
+        "default": "#300033"
+      },
+      {
+        "type": "color",
+        "id": "color_secondary",
+        "label": "Secondary Brand Color (Hot Pink)",
+        "default": "#B40063"
+      },
+      {
+        "type": "color",
+        "id": "color_accent",
+        "label": "Pastel Lavender Accent",
+        "default": "#D8B4F8"
+      },
+      {
+        "type": "color",
+        "id": "color_background",
+        "label": "Page Background",
+        "default": "#FCF8FF"
+      },
+      {
+        "type": "color",
+        "id": "color_text",
+        "label": "Body Text Color",
+        "default": "#1A1A2B"
+      }
+    ]
+  },
+  {
+    "name": "Announcement Bar & Shipping",
+    "settings": [
+      {
+        "type": "text",
+        "id": "free_shipping_threshold",
+        "label": "Free Shipping Threshold (Amount in $)",
+        "default": "50"
+      },
+      {
+        "type": "text",
+        "id": "promo_code",
+        "label": "Default Promo Code",
+        "default": "CHRONICAPP"
+      },
+      {
+        "type": "text",
+        "id": "promo_discount",
+        "label": "Default Promo Discount (%)",
+        "default": "10"
+      },
+      {
+        "type": "text",
+        "id": "support_phone",
+        "label": "Customer Support Phone",
+        "default": "+1 800 567 8900"
+      }
+    ]
+  },
+  {
+    "name": "Cart Drawer",
+    "settings": [
+      {
+        "type": "select",
+        "id": "cart_type",
+        "label": "Cart Type",
+        "options": [
+          { "value": "drawer", "label": "Slide-Out AJAX Drawer" },
+          { "value": "page", "label": "Dedicated Cart Page" }
+        ],
+        "default": "drawer"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_free_shipping_bar",
+        "label": "Show Free Shipping Progress Bar",
+        "default": true
+      }
+    ]
+  },
+  {
+    "name": "Social Media Links",
+    "settings": [
+      {
+        "type": "text",
+        "id": "social_instagram_link",
+        "label": "Instagram URL",
+        "default": "https://instagram.com/chronicsfashion"
+      },
+      {
+        "type": "text",
+        "id": "social_tiktok_link",
+        "label": "TikTok URL",
+        "default": "https://tiktok.com/@chronicsfashion"
+      },
+      {
+        "type": "text",
+        "id": "social_pinterest_link",
+        "label": "Pinterest URL",
+        "default": "https://pinterest.com/chronicsfashion"
+      }
+    ]
+  }
+]

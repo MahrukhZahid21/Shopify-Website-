@@ -1,0 +1,44 @@
+{
+  "general": {
+    "search": {
+      "placeholder": "Search collections, dresses, tops, jewelry...",
+      "submit": "Search",
+      "no_results": "No products found."
+    },
+    "continue_shopping": "Continue Shopping",
+    "pagination": {
+      "previous": "Previous",
+      "next": "Next"
+    }
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "Add to Bag",
+      "sold_out": "Sold Out",
+      "unavailable": "Unavailable",
+      "on_sale": "Sale",
+      "regular_price": "Regular price",
+      "sale_price": "Sale price",
+      "quantity": "Quantity",
+      "size": "Size",
+      "color": "Color"
+    }
+  },
+  "cart": {
+    "general": {
+      "title": "Your Shopping Bag",
+      "empty": "Your bag is empty",
+      "subtotal": "Subtotal",
+      "shipping_at_checkout": "Taxes and shipping calculated at checkout",
+      "checkout": "Proceed to Checkout",
+      "remove": "Remove"
+    }
+  },
+  "sections": {
+    "collection_template": {
+      "title": "Collections",
+      "empty": "No items found in this collection",
+      "sort_by_label": "Sort By"
+    }
+  }
+}

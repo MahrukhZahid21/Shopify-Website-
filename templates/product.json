@@ -1,0 +1,24 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "settings": {}
+    },
+    "recommendations": {
+      "type": "trending-products",
+      "settings": {
+        "title": "Complete Your Look",
+        "products_to_show": 5
+      }
+    },
+    "services": {
+      "type": "service-guarantees",
+      "settings": {}
+    }
+  },
+  "order": [
+    "main",
+    "recommendations",
+    "services"
+  ]
+}
