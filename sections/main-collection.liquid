@@ -122,12 +122,12 @@
         <!-- Top Results Bar -->
         <div class="bg-surface-container-lowest rounded-2xl p-4 shadow-sm border border-outline-variant/30 flex flex-col sm:flex-row items-center justify-between gap-4">
           <span class="text-sm text-on-surface-variant font-medium">
-            Showing <strong class="text-primary">{{ collection.products.size }}</strong> items in {{ collection.title }}
+            Showing <strong id="catalog-count-label" class="text-primary">{% if collection.products.size > 0 %}{{ collection.products.size }}{% else %}41{% endif %}</strong> items in <span id="catalog-title-label">{{ collection.title | default: 'All Collections' }}</span>
           </span>
           
           <div class="flex items-center gap-2">
             <label class="text-xs font-semibold text-on-surface-variant uppercase tracking-wider" for="sort-by">Sort By:</label>
-            <select id="sort-by" onchange="location.href = '?sort_by=' + this.value" class="bg-surface-container-low text-primary text-xs font-semibold px-3 py-2 rounded-xl border border-outline-variant/30 focus:outline-none focus:ring-2 focus:ring-secondary cursor-pointer">
+            <select id="sort-by" onchange="if(window.shopifyThemeCatalog) { window.shopifyThemeCatalog.applySort(this.value); } else { location.href = '?sort_by=' + this.value; }" class="bg-surface-container-low text-primary text-xs font-semibold px-3 py-2 rounded-xl border border-outline-variant/30 focus:outline-none focus:ring-2 focus:ring-secondary cursor-pointer">
               <option value="manual">Featured</option>
               <option value="price-ascending">Price: Low to High</option>
               <option value="price-descending">Price: High to Low</option>
@@ -136,10 +136,20 @@
           </div>
         </div>
 
+        {%- if collection.products.size == 0 -%}
+          <!-- Notice for Store Preview / Initial Setup -->
+          <div class="p-3.5 bg-gradient-to-r from-purple-50 to-pink-50 border border-purple-200/80 rounded-2xl text-xs text-primary flex flex-col sm:flex-row sm:items-center justify-between gap-2 shadow-xs">
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-secondary text-[20px] shrink-0">auto_awesome</span>
+              <span><strong>Curated Catalog Active:</strong> Showing Chronics fashion collection. To import real products to your store database, import <code class="px-1.5 py-0.5 bg-white rounded border border-purple-300 font-mono text-[11px]">chronics-shopify-products.csv</code> in <strong>Shopify Admin &rarr; Products &rarr; Import</strong>.</span>
+            </div>
+          </div>
+        {%- endif -%}
+
         <!-- Product Grid -->
-        {%- paginate collection.products by section.settings.products_per_page -%}
-          {%- if collection.products.size > 0 -%}
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
+        {%- if collection.products.size > 0 -%}
+          {%- paginate collection.products by section.settings.products_per_page -%}
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4" id="shopify-live-grid">
               {%- for product in collection.products -%}
                 {% render 'product-card', product: product %}
               {%- endfor -%}
@@ -160,14 +170,142 @@
                 {%- endif -%}
               </div>
             {%- endif -%}
-          {%- else -%}
-            <div class="py-16 text-center text-on-surface-variant">
-              <span class="material-symbols-outlined text-5xl text-lavender block mb-2">sentiment_dissatisfied</span>
-              <h3 class="font-bold text-primary text-base">{{ 'sections.collection_template.empty' | t }}</h3>
-              <p class="text-xs text-on-surface-variant mt-1">Check back soon for new runway arrivals.</p>
+          {%- endpaginate -%}
+        {%- else -%}
+          <!-- Built-in Dynamic Fallback Grid (Never 0 Products) -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4" id="products-catalog-grid">
+            <div class="product-card group bg-surface-container-lowest rounded-2xl p-3 flex flex-col justify-between shadow-xs hover:shadow-xl border border-outline-variant/30 transition-all duration-300 relative">
+              <span class="absolute top-2.5 left-2.5 z-10 px-2 py-0.5 rounded-full bg-secondary text-white text-[10px] font-bold shadow-xs">-25%</span>
+              <div class="relative w-full aspect-[4/5] rounded-xl overflow-hidden bg-surface-container-low flex items-center justify-center mb-3">
+                <img class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZ5v4FoFiApF3Qca4X2_9Nzy0hcZrbuM-jr2gzT1xr6PR7iJ2xIALMzTPus_WOYz5SQpLtiuTs0pexElPkwOPDWffpyhmLhI-cT4mUsmUe4ZSzg8JnMPXzDRPbHCrNw67MwF2_vIlyrc7SOf1VJf8xisbZL_H-s24qXXuE_QqqoQpp6w6FVngvAEi2YTu0rZJ6HMbXcjtyQZYFX_jJyAT9zypHF1lhR26JUTVqaZZuP0rEOfkdrxPlmA" alt="V-Neck Summer Dress">
+              </div>
+              <div class="flex flex-col flex-1 px-1 pb-1">
+                {% render 'rating-stars', rating: 5.0, count: 128 %}
+                <h4 class="text-sm font-semibold text-primary truncate">V-Neck Summer Dress</h4>
+                <div class="flex items-center justify-between mt-2">
+                  <span class="font-bold text-secondary text-base">$29.99</span>
+                  <button onclick="window.shopifyTheme.showToast('Added to bag!', 'success')" class="w-8 h-8 rounded-full bg-surface-container-high hover:bg-secondary hover:text-white text-primary flex items-center justify-center transition-all shadow-xs"><span class="material-symbols-outlined text-[18px]">shopping_bag</span></button>
+                </div>
+              </div>
             </div>
-          {%- endif -%}
-        {%- endpaginate -%}
+
+            <div class="product-card group bg-surface-container-lowest rounded-2xl p-3 flex flex-col justify-between shadow-xs hover:shadow-xl border border-outline-variant/30 transition-all duration-300 relative">
+              <span class="absolute top-2.5 left-2.5 z-10 px-2 py-0.5 rounded-full bg-secondary text-white text-[10px] font-bold shadow-xs">-28%</span>
+              <div class="relative w-full aspect-[4/5] rounded-xl overflow-hidden bg-surface-container-low flex items-center justify-center mb-3">
+                <img class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAGQVV-DXaD-x6TfGxrHsTD_-OgNicJtfTdn3AKKzXhiVSHJBSa9dbuawygqTBpN4Y7zD9s53j0JAgsx6tucejqAJ_pwW9GyyRpbL7zxHv_uugLNVG-O8rvlVOwe2dzyzrd1V3hsnaZ04PQbB8NMgKYCIroBttgPLlttxYJmhqlwA80rUByIKFiCBYoobvWu9YXl8GZy-rbg7VmVKysOi6_fvJl01XhnV2PZgsr0znMJXl2l6hEyj6ehw" alt="Vintage Baker Boy Cap">
+              </div>
+              <div class="flex flex-col flex-1 px-1 pb-1">
+                {% render 'rating-stars', rating: 4.9, count: 115 %}
+                <h4 class="text-sm font-semibold text-primary truncate">Vintage Baker Boy Cap</h4>
+                <div class="flex items-center justify-between mt-2">
+                  <span class="font-bold text-secondary text-base">$19.99</span>
+                  <button onclick="window.shopifyTheme.showToast('Added to bag!', 'success')" class="w-8 h-8 rounded-full bg-surface-container-high hover:bg-secondary hover:text-white text-primary flex items-center justify-center transition-all shadow-xs"><span class="material-symbols-outlined text-[18px]">shopping_bag</span></button>
+                </div>
+              </div>
+            </div>
+
+            <div class="product-card group bg-surface-container-lowest rounded-2xl p-3 flex flex-col justify-between shadow-xs hover:shadow-xl border border-outline-variant/30 transition-all duration-300 relative">
+              <div class="relative w-full aspect-[4/5] rounded-xl overflow-hidden bg-surface-container-low flex items-center justify-center mb-3">
+                <img class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300" src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=800&q=80" alt="Layered Baroque Pearl & Gold Necklace">
+              </div>
+              <div class="flex flex-col flex-1 px-1 pb-1">
+                {% render 'rating-stars', rating: 5.0, count: 88 %}
+                <h4 class="text-sm font-semibold text-primary truncate">Layered Pearl Necklace</h4>
+                <div class="flex items-center justify-between mt-2">
+                  <span class="font-bold text-secondary text-base">$24.50</span>
+                  <button onclick="window.shopifyTheme.showToast('Added to bag!', 'success')" class="w-8 h-8 rounded-full bg-surface-container-high hover:bg-secondary hover:text-white text-primary flex items-center justify-center transition-all shadow-xs"><span class="material-symbols-outlined text-[18px]">shopping_bag</span></button>
+                </div>
+              </div>
+            </div>
+
+            <div class="product-card group bg-surface-container-lowest rounded-2xl p-3 flex flex-col justify-between shadow-xs hover:shadow-xl border border-outline-variant/30 transition-all duration-300 relative">
+              <span class="absolute top-2.5 left-2.5 z-10 px-2 py-0.5 rounded-full bg-secondary text-white text-[10px] font-bold shadow-xs">-30%</span>
+              <div class="relative w-full aspect-[4/5] rounded-xl overflow-hidden bg-surface-container-low flex items-center justify-center mb-3">
+                <img class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDRldJOnG83Ggn7f8V9iNYbbnG2fWNzYa12MYAFpKtC2k289KsC0CdX8MXmdvnH-xfbbjGuVYVCiyKbEp6aF1WiwTM7t_FQuwANhJo_6XnTr6_C45FNfHFZ1OGkeqst4Sdrgk7ZT9rAwRgSl7dasVJm6KPzFce2iNUMbNDHEc--LfuQLNKvSZz05WGzsXyzuWH64TOQ7MyNBtyyDjYjRMOlx6jJBPdshIrAB3EUU-JEG4ffQiTFw47zRA" alt="Striped Casual Shirt">
+              </div>
+              <div class="flex flex-col flex-1 px-1 pb-1">
+                {% render 'rating-stars', rating: 4.9, count: 150 %}
+                <h4 class="text-sm font-semibold text-primary truncate">Striped Casual Shirt</h4>
+                <div class="flex items-center justify-between mt-2">
+                  <span class="font-bold text-secondary text-base">$27.99</span>
+                  <button onclick="window.shopifyTheme.showToast('Added to bag!', 'success')" class="w-8 h-8 rounded-full bg-surface-container-high hover:bg-secondary hover:text-white text-primary flex items-center justify-center transition-all shadow-xs"><span class="material-symbols-outlined text-[18px]">shopping_bag</span></button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <script>
+            // Automatic Dynamic Theme Catalog for Empty Store / Preview Mode
+            window.shopifyThemeCatalog = {
+              activeCategory: 'all',
+              currentSort: 'manual',
+              init() {
+                const params = new URLSearchParams(window.location.search);
+                const catParam = params.get('cat');
+                if (catParam) {
+                  this.activeCategory = catParam;
+                }
+                this.render();
+              },
+              applySort(val) {
+                this.currentSort = val;
+                this.render();
+              },
+              render() {
+                if (typeof PRODUCTS_DATA === 'undefined') return;
+                const grid = document.getElementById('products-catalog-grid');
+                const countLabel = document.getElementById('catalog-count-label');
+                const titleLabel = document.getElementById('catalog-title-label');
+                if (!grid) return;
+
+                let list = PRODUCTS_DATA.filter(p => {
+                  if (this.activeCategory === 'all') return true;
+                  if (this.activeCategory === 'women') return p.gender === 'women';
+                  if (this.activeCategory === 'men') return p.gender === 'men';
+                  if (this.activeCategory === 'accessories') {
+                    return p.category === 'accessories' || p.tags?.includes('Accessories') || p.tags?.includes('Jewelry') || p.tags?.includes('Caps') || p.tags?.includes('Headwear') || p.tags?.includes('Belts');
+                  }
+                  return p.category === this.activeCategory;
+                });
+
+                if (this.currentSort === 'price-ascending') list.sort((a, b) => a.price - b.price);
+                else if (this.currentSort === 'price-descending') list.sort((a, b) => b.price - a.price);
+
+                if (countLabel) countLabel.textContent = list.length;
+                if (titleLabel) titleLabel.textContent = this.activeCategory.charAt(0).toUpperCase() + this.activeCategory.slice(1);
+
+                grid.innerHTML = list.map(p => `
+                  <div class="product-card group bg-surface-container-lowest rounded-2xl p-3 flex flex-col justify-between shadow-xs hover:shadow-xl border border-outline-variant/30 transition-all duration-300 relative">
+                    ${p.discount ? `<span class="absolute top-2.5 left-2.5 z-10 px-2 py-0.5 rounded-full bg-secondary text-white text-[10px] font-bold shadow-xs">${p.discount}</span>` : ''}
+                    <div class="relative w-full aspect-[4/5] rounded-xl overflow-hidden bg-surface-container-low flex items-center justify-center mb-3">
+                      <img class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300" src="${p.images[0]}" alt="${p.title}">
+                    </div>
+                    <div class="flex flex-col flex-1 px-1 pb-1">
+                      <div class="flex items-center gap-1 text-amber-500 mb-1 text-xs">
+                        <span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">star</span>
+                        <span class="font-bold text-xs">${p.rating}</span>
+                        <span class="text-on-surface-variant/80 ml-1 text-[11px]">(${p.reviewsCount})</span>
+                      </div>
+                      <h4 class="text-sm font-semibold text-primary truncate">${p.title}</h4>
+                      <div class="flex items-center justify-between mt-2">
+                        <div class="flex items-baseline gap-1.5">
+                          <span class="font-bold text-secondary text-base">$${p.price.toFixed(2)}</span>
+                          ${p.originalPrice ? `<span class="text-xs text-outline line-through">$${p.originalPrice.toFixed(2)}</span>` : ''}
+                        </div>
+                        <button onclick="window.shopifyTheme.showToast('Added ' + ${JSON.stringify(p.title)} + ' to bag!', 'success')" class="w-8 h-8 rounded-full bg-surface-container-high hover:bg-secondary hover:text-white text-primary flex items-center justify-center transition-all shadow-xs" title="Add to Bag">
+                          <span class="material-symbols-outlined text-[18px]">shopping_bag</span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                `).join('');
+              }
+            };
+            document.addEventListener('DOMContentLoaded', () => {
+              window.shopifyThemeCatalog.init();
+            });
+          </script>
+        {%- endif -%}
 
       </div>
 
