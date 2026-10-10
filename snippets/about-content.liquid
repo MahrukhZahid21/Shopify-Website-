@@ -1,0 +1,119 @@
+<div class="flex flex-col w-full bg-background min-h-screen">
+  
+  <!-- Hero Banner -->
+  <section class="relative overflow-hidden py-16 px-4 md:px-12 border-b-2 border-lavender/50 bg-gradient-chic">
+    <div class="max-w-[1360px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+      <div class="lg:col-span-7 flex flex-col items-start">
+        <span class="text-[11px] font-bold uppercase tracking-widest px-3.5 py-1 rounded-full shadow-xs mb-3 bg-white text-secondary border border-lavender">
+          The Chronics Atelier
+        </span>
+        <h1 class="font-headline-lg text-4xl lg:text-6xl text-primary tracking-tight font-bold leading-tight">
+          Curated Style,<br>
+          <span class="text-secondary italic">Redefined For You</span>
+        </h1>
+        <p class="text-base text-on-surface-variant max-w-lg mt-3 leading-relaxed">
+          Born from a vision to make high-fashion runway silhouettes and architectural tailoring accessible to modern lifestyles without compromise on sustainability or quality.
+        </p>
+      </div>
+      <div class="lg:col-span-5 flex justify-center">
+        <div class="relative w-full max-w-[420px] aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
+          <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=800&q=80" alt="Chronics Atelier" class="w-full h-full object-cover">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Brand Mission Pillars -->
+  <section class="max-w-[1360px] mx-auto w-full px-4 md:px-12 py-16">
+    <div class="text-center max-w-2xl mx-auto mb-12">
+      <span class="text-xs font-bold text-secondary uppercase tracking-widest">Our Guiding Pillars</span>
+      <h2 class="font-headline-md text-3xl font-bold text-primary mt-1">Fashion with Purpose &amp; Precision</h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      
+      <div class="p-8 rounded-3xl bg-white border border-purple-200 shadow-sm flex flex-col justify-between hover:shadow-xl transition-all">
+        <div>
+          <div class="w-14 h-14 rounded-2xl bg-secondary-fixed text-secondary flex items-center justify-center mb-6">
+            <span class="material-symbols-outlined text-[28px]">design_services</span>
+          </div>
+          <h3 class="font-headline-sm text-xl font-bold text-primary mb-2">Runway-Inspired Design</h3>
+          <p class="text-xs text-on-surface-variant leading-relaxed">
+            We bridge high-end European fashion aesthetics with effortless daily wear. Every stitch, drape, and cut is engineered to empower confidence and timeless appeal.
+          </p>
+        </div>
+        <a href="{{ routes.all_products_collection_url }}" class="text-xs font-bold text-secondary mt-6 flex items-center gap-1 hover:underline">
+          Explore The Collection <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+        </a>
+      </div>
+
+      <div class="p-8 rounded-3xl bg-white border border-purple-200 shadow-sm flex flex-col justify-between hover:shadow-xl transition-all">
+        <div>
+          <div class="w-14 h-14 rounded-2xl bg-primary-fixed text-primary flex items-center justify-center mb-6">
+            <span class="material-symbols-outlined text-[28px]">eco</span>
+          </div>
+          <h3 class="font-headline-sm text-xl font-bold text-primary mb-2">100% Organic &amp; Low Impact</h3>
+          <p class="text-xs text-on-surface-variant leading-relaxed">
+            From certified GOTS organic combed cotton and European flax linen to recycled luxury microfiber, we prioritize regenerative textiles and biodegradable packaging.
+          </p>
+        </div>
+        <span class="text-xs font-bold text-secondary mt-6 flex items-center gap-1">
+          Planet-First Craftsmanship <span class="material-symbols-outlined text-[16px]">verified</span>
+        </span>
+      </div>
+
+      <div class="p-8 rounded-3xl bg-white border border-purple-200 shadow-sm flex flex-col justify-between hover:shadow-xl transition-all">
+        <div>
+          <div class="w-14 h-14 rounded-2xl bg-tertiary-fixed text-tertiary flex items-center justify-center mb-6">
+            <span class="material-symbols-outlined text-[28px]">groups</span>
+          </div>
+          <h3 class="font-headline-sm text-xl font-bold text-primary mb-2">Inclusive Modern Sizing</h3>
+          <p class="text-xs text-on-surface-variant leading-relaxed">
+            Garments engineered with tailored stretch and forgiving waists designed to flatter real diverse body proportions with elegance from XS to XXL.
+          </p>
+        </div>
+        <span class="text-xs font-bold text-secondary mt-6 flex items-center gap-1">
+          Tailored For Real Movement <span class="material-symbols-outlined text-[16px]">favorite</span>
+        </span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Sustainability Stats Counter -->
+  <section class="w-full py-14 bg-primary text-white">
+    <div class="max-w-[1360px] mx-auto px-4 md:px-12">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+        <div class="flex flex-col items-center">
+          <span class="font-headline-lg text-4xl lg:text-5xl font-bold text-secondary-fixed">100%</span>
+          <span class="text-xs text-white/80 uppercase tracking-wider font-semibold mt-1">GOTS Certified Organic</span>
+        </div>
+        <div class="flex flex-col items-center">
+          <span class="font-headline-lg text-4xl lg:text-5xl font-bold text-secondary-fixed">50K+</span>
+          <span class="text-xs text-white/80 uppercase tracking-wider font-semibold mt-1">Global Customers</span>
+        </div>
+        <div class="flex flex-col items-center">
+          <span class="font-headline-lg text-4xl lg:text-5xl font-bold text-secondary-fixed">0%</span>
+          <span class="text-xs text-white/80 uppercase tracking-wider font-semibold mt-1">Landfill Waste Target</span>
+        </div>
+        <div class="flex flex-col items-center">
+          <span class="font-headline-lg text-4xl lg:text-5xl font-bold text-secondary-fixed">4.9 ★</span>
+          <span class="text-xs text-white/80 uppercase tracking-wider font-semibold mt-1">Average Satisfaction</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Founder Quote / Atelier Vision -->
+  <section class="max-w-[1000px] mx-auto w-full px-4 md:px-12 py-16 text-center">
+    <span class="material-symbols-outlined text-5xl text-secondary mb-4">format_quote</span>
+    <blockquote class="font-headline-md text-2xl lg:text-3xl text-primary font-bold leading-relaxed italic">
+      "We believe true luxury is not defined by excess, but by intention. When you step into a Chronics piece, you step into confidence, comfort, and uncompromising craft."
+    </blockquote>
+    <div class="mt-6 flex flex-col items-center">
+      <span class="font-bold text-primary text-base">Elena Chronis &amp; Design Collective</span>
+      <span class="text-xs text-on-surface-variant">Creative Directors, Chronics</span>
+    </div>
+  </section>
+
+</div>

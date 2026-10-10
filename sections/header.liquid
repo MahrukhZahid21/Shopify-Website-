@@ -19,23 +19,26 @@
       </div>
 
       <!-- Desktop Nav -->
-      <nav class="hidden lg:flex items-center gap-6">
+      <nav class="hidden lg:flex items-center gap-5 xl:gap-6">
+        <a href="{{ routes.root_url }}" class="py-2 hover:text-secondary transition-colors text-sm tracking-wide {% if request.path == routes.root_url %}text-secondary border-b-2 border-secondary font-semibold{% else %}text-on-surface-variant{% endif %}">Home</a>
+        <a href="{{ routes.all_products_collection_url }}" class="py-2 hover:text-secondary transition-colors text-sm tracking-wide {% if request.path contains routes.all_products_collection_url and request.query_string == blank %}text-secondary border-b-2 border-secondary font-semibold{% else %}text-on-surface-variant{% endif %}">Shop</a>
+        <a href="{{ routes.all_products_collection_url }}?cat=women" class="py-2 hover:text-secondary transition-colors text-sm tracking-wide {% if request.query_string contains 'cat=women' %}text-secondary border-b-2 border-secondary font-semibold{% else %}text-on-surface-variant{% endif %}">Women</a>
+        <a href="{{ routes.all_products_collection_url }}?cat=men" class="py-2 hover:text-secondary transition-colors text-sm tracking-wide {% if request.query_string contains 'cat=men' %}text-secondary border-b-2 border-secondary font-semibold{% else %}text-on-surface-variant{% endif %}">Men</a>
+        <a href="{{ routes.all_products_collection_url }}?cat=accessories" class="py-2 hover:text-secondary transition-colors text-sm tracking-wide {% if request.query_string contains 'cat=accessories' %}text-secondary border-b-2 border-secondary font-semibold{% else %}text-on-surface-variant{% endif %}">Accessories</a>
+        <a href="/pages/reviews" class="py-2 hover:text-secondary transition-colors text-sm tracking-wide {% if request.path contains 'reviews' %}text-secondary border-b-2 border-secondary font-semibold{% else %}text-on-surface-variant{% endif %}">Reviews</a>
+        <a href="/pages/faq" class="py-2 hover:text-secondary transition-colors text-sm tracking-wide {% if request.path contains 'faq' %}text-secondary border-b-2 border-secondary font-semibold{% else %}text-on-surface-variant{% endif %}">FAQ</a>
+        <a href="/pages/about" class="py-2 hover:text-secondary transition-colors text-sm tracking-wide {% if request.path contains 'about' %}text-secondary border-b-2 border-secondary font-semibold{% else %}text-on-surface-variant{% endif %}">About Us</a>
+        <a href="/pages/contact" class="py-2 hover:text-secondary transition-colors text-sm tracking-wide {% if request.path contains 'contact' %}text-secondary border-b-2 border-secondary font-semibold{% else %}text-on-surface-variant{% endif %}">Contact Us</a>
+
         {%- if section.settings.menu != blank -%}
           {%- for link in linklists[section.settings.menu].links -%}
-            <a href="{{ link.url }}" class="py-2 text-on-surface-variant hover:text-secondary transition-colors text-sm tracking-wide {% if link.active %}text-secondary border-b-2 border-secondary font-semibold{% endif %}">
-              {{ link.title }}
-            </a>
+            {%- assign link_title_down = link.title | downcase -%}
+            {%- unless link_title_down == 'home' or link_title_down == 'catalog' or link_title_down == 'shop' or link_title_down == 'about us' or link_title_down == 'faq' or link_title_down == 'reviews' or link_title_down == 'contact us' -%}
+              <a href="{{ link.url }}" class="py-2 text-on-surface-variant hover:text-secondary transition-colors text-sm tracking-wide">
+                {{ link.title }}
+              </a>
+            {%- endunless -%}
           {%- endfor -%}
-        {%- else -%}
-          <a href="{{ routes.root_url }}" class="py-2 text-secondary border-b-2 border-secondary font-semibold text-sm tracking-wide">Home</a>
-          <a href="{{ routes.all_products_collection_url }}" class="py-2 text-on-surface-variant hover:text-secondary transition-colors text-sm tracking-wide">Shop</a>
-          <a href="{{ routes.all_products_collection_url }}?filter=women" class="py-2 text-on-surface-variant hover:text-secondary transition-colors text-sm tracking-wide">Women</a>
-          <a href="{{ routes.all_products_collection_url }}?filter=men" class="py-2 text-on-surface-variant hover:text-secondary transition-colors text-sm tracking-wide">Men</a>
-          <a href="{{ routes.all_products_collection_url }}?filter=accessories" class="py-2 text-on-surface-variant hover:text-secondary transition-colors text-sm tracking-wide">Accessories</a>
-          <a href="/pages/reviews" class="py-2 text-on-surface-variant hover:text-secondary transition-colors text-sm tracking-wide">Reviews</a>
-          <a href="/pages/faq" class="py-2 text-on-surface-variant hover:text-secondary transition-colors text-sm tracking-wide">FAQ</a>
-          <a href="/pages/about" class="py-2 text-on-surface-variant hover:text-secondary transition-colors text-sm tracking-wide">About Us</a>
-          <a href="/pages/contact" class="py-2 text-on-surface-variant hover:text-secondary transition-colors text-sm tracking-wide">Contact Us</a>
         {%- endif -%}
       </nav>
 

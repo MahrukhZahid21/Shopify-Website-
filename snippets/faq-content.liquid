@@ -1,0 +1,169 @@
+<div class="flex flex-col w-full bg-background min-h-screen">
+  
+  <!-- Top Banner -->
+  <section class="relative overflow-hidden py-14 px-4 md:px-12 border-b-2 border-lavender/50 bg-gradient-chic text-center">
+    <div class="max-w-[760px] mx-auto relative z-10 flex flex-col items-center">
+      <span class="inline-block text-[11px] font-bold uppercase tracking-widest px-3.5 py-1 rounded-full shadow-xs mb-3 bg-white text-secondary border border-lavender">
+        24/7 Concierge &amp; Support
+      </span>
+      <h1 class="font-headline-lg text-3xl lg:text-5xl text-primary tracking-tight font-bold">
+        Frequently Asked Questions
+      </h1>
+      <p class="text-base text-on-surface-variant mt-2 leading-relaxed">
+        Got questions about shipping timelines, sizing, returns, or order tracking? Everything you need to know is right here.
+      </p>
+      <div class="w-full max-w-md mt-6 relative">
+        <input id="faq-search" oninput="window.shopifyFaq.searchFaq(this.value)" type="text" placeholder="Search questions (shipping, returns, sizing, discounts)..." class="w-full h-12 pl-11 pr-4 bg-white rounded-full border border-purple-200 shadow-sm focus:outline-none focus:ring-2 focus:ring-secondary text-sm">
+        <span class="material-symbols-outlined text-secondary absolute left-4 top-3.5 text-[20px]">search</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Accordion Section -->
+  <section class="max-w-[900px] mx-auto w-full px-4 md:px-12 py-12">
+    
+    <!-- Category Tabs -->
+    <div class="flex flex-wrap items-center justify-center gap-2 mb-8">
+      <button onclick="window.shopifyFaq.filterCategory('all', this)" class="faq-cat-btn px-5 py-2 rounded-full bg-primary text-white text-xs font-bold shadow-xs">All Topics</button>
+      <button onclick="window.shopifyFaq.filterCategory('shipping', this)" class="faq-cat-btn px-5 py-2 rounded-full bg-surface-container-high hover:bg-purple-100 text-primary text-xs font-semibold transition-colors">Shipping &amp; Delivery</button>
+      <button onclick="window.shopifyFaq.filterCategory('returns', this)" class="faq-cat-btn px-5 py-2 rounded-full bg-surface-container-high hover:bg-purple-100 text-primary text-xs font-semibold transition-colors">Returns &amp; Exchanges</button>
+      <button onclick="window.shopifyFaq.filterCategory('sizing', this)" class="faq-cat-btn px-5 py-2 rounded-full bg-surface-container-high hover:bg-purple-100 text-primary text-xs font-semibold transition-colors">Sizing &amp; Fits</button>
+      <button onclick="window.shopifyFaq.filterCategory('payments', this)" class="faq-cat-btn px-5 py-2 rounded-full bg-surface-container-high hover:bg-purple-100 text-primary text-xs font-semibold transition-colors">Payments &amp; Coupons</button>
+    </div>
+
+    <div class="space-y-4" id="faq-accordion-container">
+      
+      <!-- Item 1: Shipping -->
+      <div class="faq-item bg-white rounded-2xl p-5 shadow-xs border border-purple-200 transition-all" data-cat="shipping">
+        <button onclick="window.shopifyFaq.toggle(this)" class="w-full flex items-center justify-between text-left font-bold text-primary text-base gap-3">
+          <span>How long does domestic and worldwide shipping take?</span>
+          <span class="material-symbols-outlined text-secondary transition-transform faq-icon">expand_more</span>
+        </button>
+        <div class="faq-answer hidden pt-3 text-xs text-on-surface-variant leading-relaxed border-t border-outline-variant/20 mt-3">
+          All domestic orders are delivered within <strong>2 to 4 business days</strong>. Orders placed before 2:00 PM ship same-day! Worldwide international express shipping takes approximately <strong>4 to 7 business days</strong>. Orders over $50 qualify for 100% Free Shipping.
+        </div>
+      </div>
+
+      <!-- Item 2: Returns -->
+      <div class="faq-item bg-white rounded-2xl p-5 shadow-xs border border-purple-200 transition-all" data-cat="returns">
+        <button onclick="window.shopifyFaq.toggle(this)" class="w-full flex items-center justify-between text-left font-bold text-primary text-base gap-3">
+          <span>What is your return and exchange policy?</span>
+          <span class="material-symbols-outlined text-secondary transition-transform faq-icon">expand_more</span>
+        </button>
+        <div class="faq-answer hidden pt-3 text-xs text-on-surface-variant leading-relaxed border-t border-outline-variant/20 mt-3">
+          We offer a <strong>30-Day Hassle-Free Return &amp; Exchange Policy</strong>. If your garment doesn't fit or meet your expectation, simply initiate a return via our portal to print a prepaid return shipping label. Exchanges for alternate sizes or colors are 100% complimentary.
+        </div>
+      </div>
+
+      <!-- Item 3: Sizing -->
+      <div class="faq-item bg-white rounded-2xl p-5 shadow-xs border border-purple-200 transition-all" data-cat="sizing">
+        <button onclick="window.shopifyFaq.toggle(this)" class="w-full flex items-center justify-between text-left font-bold text-primary text-base gap-3">
+          <span>How do Chronics clothes fit? Do they run true to size?</span>
+          <span class="material-symbols-outlined text-secondary transition-transform faq-icon">expand_more</span>
+        </button>
+        <div class="faq-answer hidden pt-3 text-xs text-on-surface-variant leading-relaxed border-t border-outline-variant/20 mt-3">
+          Our designs strictly follow standard US and European sizing. Detailed garment measurements are provided on every product page. For elasticated and wrap silhouettes, if you are between sizes, we recommend sizing down.
+        </div>
+      </div>
+
+      <!-- Item 4: Coupons -->
+      <div class="faq-item bg-white rounded-2xl p-5 shadow-xs border border-purple-200 transition-all" data-cat="payments">
+        <button onclick="window.shopifyFaq.toggle(this)" class="w-full flex items-center justify-between text-left font-bold text-primary text-base gap-3">
+          <span>How do I use my 10% discount code?</span>
+          <span class="material-symbols-outlined text-secondary transition-transform faq-icon">expand_more</span>
+        </button>
+        <div class="faq-answer hidden pt-3 text-xs text-on-surface-variant leading-relaxed border-t border-outline-variant/20 mt-3">
+          You can apply promo code <strong>CHRONICAPP</strong> or <strong>CHRONIC10</strong> directly in your Slide-Over Shopping Bag drawer or during final checkout. An immediate 10% discount will calculate on your entire order total!
+        </div>
+      </div>
+
+      <!-- Item 5: Payments -->
+      <div class="faq-item bg-white rounded-2xl p-5 shadow-xs border border-purple-200 transition-all" data-cat="payments">
+        <button onclick="window.shopifyFaq.toggle(this)" class="w-full flex items-center justify-between text-left font-bold text-primary text-base gap-3">
+          <span>Which payment methods and installment plans do you accept?</span>
+          <span class="material-symbols-outlined text-secondary transition-transform faq-icon">expand_more</span>
+        </button>
+        <div class="faq-answer hidden pt-3 text-xs text-on-surface-variant leading-relaxed border-t border-outline-variant/20 mt-3">
+          We accept Visa, MasterCard, American Express, PayPal, Apple Pay, Google Pay, as well as 4 interest-free installment payment options through <strong>Klarna</strong> and <strong>Afterpay</strong>. All transactions are protected by 256-Bit bank-grade SSL encryption.
+        </div>
+      </div>
+
+      <!-- Item 6: Order Tracking -->
+      <div class="faq-item bg-white rounded-2xl p-5 shadow-xs border border-purple-200 transition-all" data-cat="shipping">
+        <button onclick="window.shopifyFaq.toggle(this)" class="w-full flex items-center justify-between text-left font-bold text-primary text-base gap-3">
+          <span>How do I track my order once it has shipped?</span>
+          <span class="material-symbols-outlined text-secondary transition-transform faq-icon">expand_more</span>
+        </button>
+        <div class="faq-answer hidden pt-3 text-xs text-on-surface-variant leading-relaxed border-t border-outline-variant/20 mt-3">
+          As soon as your parcel is dispatched, you will receive an email confirmation containing your real-time tracking number with step-by-step transit milestones.
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Need More Help Banner -->
+    <div class="mt-12 p-8 bg-gradient-to-r from-primary-container to-secondary rounded-3xl text-white flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl">
+      <div>
+        <h3 class="font-headline-sm text-2xl font-bold">Still have questions?</h3>
+        <p class="text-xs text-white/80 mt-1">Our live styling and support concierges are available 24/7 to assist you.</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <button onclick="window.shopifyTheme.toggleChatDrawer(true)" class="px-6 py-3 rounded-full bg-white text-secondary font-bold text-xs shadow-md hover:scale-105 transition-all">
+          Chat With Stylist
+        </button>
+        <a href="/pages/contact" class="px-6 py-3 rounded-full bg-white/20 hover:bg-white/30 text-white font-bold text-xs transition-colors border border-white/30">
+          Contact Us
+        </a>
+      </div>
+    </div>
+
+  </section>
+
+</div>
+
+<script>
+  window.shopifyFaq = {
+    toggle(btn) {
+      const item = btn.closest('.faq-item');
+      const ans = item.querySelector('.faq-answer');
+      const icon = item.querySelector('.faq-icon');
+      const isHidden = ans.classList.contains('hidden');
+
+      document.querySelectorAll('.faq-item').forEach(i => {
+        i.querySelector('.faq-answer')?.classList.add('hidden');
+        const ic = i.querySelector('.faq-icon');
+        if (ic) ic.style.transform = 'rotate(0deg)';
+      });
+
+      if (isHidden) {
+        ans.classList.remove('hidden');
+        if (icon) icon.style.transform = 'rotate(180deg)';
+      }
+    },
+    filterCategory(cat, btn) {
+      document.querySelectorAll('.faq-cat-btn').forEach(b => {
+        b.className = 'faq-cat-btn px-5 py-2 rounded-full bg-surface-container-high hover:bg-purple-100 text-primary text-xs font-semibold transition-colors';
+      });
+      btn.className = 'faq-cat-btn px-5 py-2 rounded-full bg-primary text-white text-xs font-bold shadow-xs';
+
+      document.querySelectorAll('.faq-item').forEach(item => {
+        if (cat === 'all' || item.getAttribute('data-cat') === cat) {
+          item.style.display = 'block';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    },
+    searchFaq(val) {
+      const q = val.toLowerCase().trim();
+      document.querySelectorAll('.faq-item').forEach(item => {
+        const text = item.textContent.toLowerCase();
+        if (!q || text.includes(q)) {
+          item.style.display = 'block';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    }
+  };
+</script>
